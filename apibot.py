@@ -23,7 +23,7 @@ async def get_settings():
     return 10, 9  # Default values if not set
 
 # Bot Configuration
-TELEGRAM_BOT_TOKEN = '7253223391:AAEe5gFDdYo0yayXzQzklyXVLQcEQx4lXYg'
+TELEGRAM_BOT_TOKEN = '7253223391:AAF7y-x7bCXmAjf2zG42JdbXgEcMRXNRXnM'
 ADMIN_USER_ID = 529691217  # Replace with your admin user ID
 # Replace this with your actual list of URLs
 attack_urls = [
@@ -38,16 +38,20 @@ user_attack_history = {}
 # Valid IP prefixes
 valid_ip_prefixes = ('52.', '20.', '14.', '4.', '13.', '0.', '235.')
 
-async  def start(update: Update, context: CallbackContext) -> None:
-       user_id = update.message.from_user.id
-       welcome_message = (
-           f"⚡ Welcome to the battlefield, {update.message.from_user.first_name}! ⚡\n"
+async def start(update: Update, context: CallbackContext):
+    chat_id = update.effective_chat.id
+    user_id = update.effective_user.id  # Get the ID of the user
+
+    # Check if the user is allowed to use the bot
+    if not await is_user_allowed(user_id):
+        await context.bot.send_message(chat_id=chat_id, text="*❌ You are not authorized to use this bot!*", parse_mode='Markdown')
+        return
+
+    message = (
+        "*🔥 Welcome to the battlefield! 🔥*\n\n"
            "*Use /attack <ip> <port>*\n"
-           f"👤 User ID: {user_id}\n"
-           "🔴 Status: ❌ Not Approved\n"
-           "🚫 Access Restricted! Contact admin for support."
-       )
-       update.message.reply_text(welcome_message)
+              "*🎭DARKWEB BOT🎭*"
+    )
     await context.bot.send_message(chat_id=chat_id, text=message, parse_mode='Markdown')
 
 async def add_user(update: Update, context: CallbackContext):
