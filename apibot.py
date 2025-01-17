@@ -27,9 +27,9 @@ TELEGRAM_BOT_TOKEN = '7253223391:AAF7y-x7bCXmAjf2zG42JdbXgEcMRXNRXnM'
 ADMIN_USER_ID = 529691217  # Replace with your admin user ID
 # Replace this with your actual list of URLs
 attack_urls = [
-    "https://b76e-35-171-157-63.ngrok-free.app/run_Spike",
-    "https://f0b7-3-92-217-150.ngrok-free.app/run_Spike",
-    "https://75e9-107-23-252-145.ngrok-free.app/run_Spike",
+    "https://e445-2a05-d016-2c6-5b00-514e-674d-f549-f733.ngrok-free.app/run_Spike",
+    "https://7c08-2406-da1a-eac-db00-b487-cd85-ad9d-6818.ngrok-free.app/run_Spike",
+    "https://a361-2406-da1a-eac-db00-aff7-60b5-4ee-ce47.ngrok-free.app/run_Spike",
 ]
 # Track user attacks and cooldowns
 cooldown_dict = {}
