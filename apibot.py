@@ -23,13 +23,13 @@ async def get_settings():
     return 10, 9  # Default values if not set
 
 # Bot Configuration
-TELEGRAM_BOT_TOKEN = '7881686110:AAF_spQBu6DfUI7D0fGFLUQrqbr99K0CslY'
+TELEGRAM_BOT_TOKEN = '7875735321:AAFelVWycPx1lakmq-Qp2xmaYGQJwQso2es'
 ADMIN_USER_ID = 529691217  # Replace with your admin user ID
 # Replace this with your actual list of URLs
 attack_urls = [
-    "https://8a04-2406-da18-ca9-cc00-444c-c2d6-ff98-b5e8.ngrok-free.app/run_Vampire",
-    "https://a347-2a05-d016-73c-dd00-6a1-99d0-9452-5fdd.ngrok-free.app/run_Vampire",
-    "https://eb5e-2a05-d016-73c-dd00-34b2-76e7-a4e-9503.ngrok-free.app/run_Vampire",
+    "https://3929-2a05-d016-844-8f00-b8ef-9b8e-cfb2-c11a.ngrok-free.app/run_Vampire",
+    "https://5a3f-2a05-d016-844-8f00-46e8-f47b-7ea3-89b6.ngrok-free.app/run_Vampire",
+    "https://e913-2a05-d016-844-8f00-b8ef-9b8e-cfb2-c11a.ngrok-free.app/run_Vampire",
 ]
 # Track user attacks and cooldowns
 cooldown_dict = {}
